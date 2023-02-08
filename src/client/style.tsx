@@ -1,27 +1,26 @@
-import { ABU } from "@client/config";
+import { deriveObject, pickObject } from "@client/util";
 import { css, cx } from "@emotion/css";
-import { darken } from "polished";
+import { darken, getLuminance } from "polished";
 
-const DARKEN_AMOUNT = 0.15;
+const COLOR_DARKEN = 0.15;
 
 export enum Color {
-  main = "#103171",
+  primary = "#103171",
   warn = "#f6a829",
   disabled = "#cad1d0",
-  light = "#e6e6f0",
+  light = "#f5f5f5",
   error = "#e96758",
   black = "#182624",
   transparent = "transparent",
 }
 
-export const ColorDerived = {
-  darkMain: darken(DARKEN_AMOUNT, Color.main),
-  darkWarn: darken(DARKEN_AMOUNT, Color.warn),
-};
+export const ColorDark = deriveObject(Color, (color: Color) => darken(COLOR_DARKEN, color));
+
+const BtnColor = pickObject(Color, "primary", "warn", "disabled", "light");
 
 export namespace Style {
   export const btn = css`
-    color: ${Color.main} !important;
+    color: ${Color.primary} !important;
     font-size: 2rem;
     line-height: 2rem;
     height: 4rem;
@@ -63,54 +62,39 @@ export namespace Style {
     `
   );
 
-  const buildBtnBg = (color: string) =>
-    css`
-      background: ${color}!important;
-    `;
-
-  export const btnPrimary = cx(
-    btn,
-    buildBtnBg(Color.main),
-    css`
+  const BtnSizeCls = {
+    md: css`
       border-radius: 0.3rem;
       font-size: 2rem;
       height: 5rem;
       min-width: 16rem;
-      color: #ffffff !important;
-      align-items: center;
-      margin: auto;
-    `
-  );
-
-  export const btnPrimarySm = cx(
-    btnPrimary,
-    css`
-      min-width: 9rem;
+    `,
+    sm: css`
+      min-width: 12rem;
       height: 3.5rem;
       font-size: 1.4rem;
       border-radius: 0.2rem;
-    `
-  );
-
-  export const btnPrimaryXS = cx(
-    btnPrimary,
-    css`
+    `,
+    xs: css`
       min-width: 7rem;
       height: 2.5rem;
       font-size: 1.2rem;
       border-radius: 0.1rem;
-    `
-  );
+    `,
+  };
 
-  export const btnWarning = cx(btnPrimary, buildBtnBg(Color.warn));
+  const buildBtnClsGroup = (bgColor: Color) => {
+    const fontColor = getLuminance(bgColor) > 0.5 ? Color.primary : Color.light;
+    const patchCls = css`
+      align-items: center;
+      margin: auto;
+      background: ${bgColor}!important;
+      color: ${fontColor}!important;
+    `;
+    return deriveObject(BtnSizeCls, (sizeCls) => cx(btn, sizeCls, patchCls));
+  };
 
-  export const btnWarningSm = cx(btnPrimarySm, buildBtnBg(Color.warn));
-
-  export const btnWarningSX = cx(btnPrimaryXS, buildBtnBg(Color.warn));
-
-  export const btnDisabledSm = cx(btnPrimarySm, buildBtnBg(Color.disabled));
-
-  export const btnDisabledXS = cx(btnPrimaryXS, buildBtnBg(Color.disabled));
+  export const Btn = deriveObject(BtnColor, (color: Color) => buildBtnClsGroup(color));
 
   export const buttonGroup = css`
     display: flex;
@@ -156,7 +140,6 @@ export namespace Style {
     border-radius: 2rem;
 
     .ant-modal-body {
-      //background: url(${ABU}modulebg.png) no-repeat;
       background-size: cover;
       border-radius: 1.5rem;
       padding: 4rem 8rem;
@@ -172,7 +155,7 @@ export namespace Style {
     padding-top: 3rem;
     font-size: 2rem;
     text-align: center;
-    color: ${Color.main};
+    color: ${Color.primary};
   `;
 
   export const modalAddition = css`
@@ -186,7 +169,7 @@ export namespace Style {
     padding: 1rem 2rem;
     border-radius: 0.6rem;
     font-size: 2.2rem;
-    color: ${Color.main};
+    color: ${Color.primary};
     box-shadow: none;
     overflow: hidden;
     border: 1px solid rgba(197, 197, 197, 0.72);
@@ -197,7 +180,7 @@ export namespace Style {
     }
 
     &:focus {
-      border-color: ${Color.main} !important;
+      border-color: ${Color.primary} !important;
       box-shadow: none;
     }
 
@@ -217,11 +200,11 @@ export namespace Style {
 
   export const radio = css`
     .ant-radio-inner {
-      border-color: ${Color.main};
+      border-color: ${Color.primary};
     }
 
     .ant-radio-checked .ant-radio-inner:after {
-      background-color: ${Color.main};
+      background-color: ${Color.primary};
     }
   `;
   export const radioMid = css`
@@ -260,7 +243,7 @@ export namespace Style {
     display: flex;
     align-items: center;
     width: 100%;
-    background: ${ColorDerived.darkMain};
+    background: ${ColorDark.primary};
     font-size: 2rem;
     color: ${Color.light};
   `;

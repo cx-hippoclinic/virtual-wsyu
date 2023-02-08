@@ -5,7 +5,7 @@ import { mainView, subViewList } from "./Main/View";
 
 ConfigProvider.config({
   theme: {
-    primaryColor: Color.main,
+    primaryColor: Color.primary,
   },
 });
 
