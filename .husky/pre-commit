@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npx eslint . --ext .ts,.tsx || (echo -e "\033[33m Warn: 请运行 npm run lint 修复代码样式\033[0m"; false)

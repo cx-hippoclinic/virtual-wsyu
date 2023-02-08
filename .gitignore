@@ -1,0 +1,21 @@
+# Dependency directories
+node_modules/
+
+# Log
+*.log
+
+# Dotenv environment variables file
+*.env
+
+# IDE
+.idea
+.vscode
+
+# Temp
+.DS_Store
+state.json
+build
+tar
+dist
+pkg
+dump
