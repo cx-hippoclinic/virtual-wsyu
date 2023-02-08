@@ -1,6 +1,6 @@
 import { Core, Env, IMainView, ISubView } from "@ancademy/vse-client";
 import { Button, Card, List, Spin, Tag } from "antd";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import {
   ICreateParams,
   IGameState,

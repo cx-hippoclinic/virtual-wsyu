@@ -1,7 +1,7 @@
 import { renderVseView } from "@ancademy/vse-client";
-import { mainView, subViewList } from "./Main/View";
-import { ConfigProvider } from "antd";
 import { adjustRem, Color } from "@client";
+import { ConfigProvider } from "antd";
+import { mainView, subViewList } from "./Main/View";
 
 ConfigProvider.config({
   theme: {
