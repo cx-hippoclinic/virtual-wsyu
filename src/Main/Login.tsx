@@ -2,6 +2,7 @@ import { AsExpertModal, LoginModal, RegisterModal } from "@ancademy/vse-client";
 import { Asset, Style } from "@client";
 import { css } from "@emotion/css";
 import { Button, Space } from "antd";
+import { StyleTest } from "./StyleTest";
 
 export function Login() {
   return (
@@ -47,6 +48,7 @@ export function Login() {
           </AsExpertModal>
         </Space>
       </div>
+      <StyleTest />
     </section>
   );
 }
