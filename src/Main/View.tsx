@@ -11,6 +11,7 @@ import {
   PushType,
   SubGameStatus,
 } from "./config";
+import { Lobby } from "./Lobby";
 import { Login } from "./Login";
 
 export function Play({
@@ -68,6 +69,7 @@ export function Play({
 
 export const mainView: IMainView = {
   Login,
+  Lobby,
   Play,
 };
 

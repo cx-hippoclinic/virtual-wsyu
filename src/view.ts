@@ -1,15 +1,9 @@
 import { renderVseView } from "@ancademy/vse-client";
-import { adjustRem, Color } from "@client";
-import { ConfigProvider } from "antd";
+import { initTheme, testTheme } from "@client";
 import { mainView, subViewList } from "./Main/View";
 
-ConfigProvider.config({
-  theme: {
-    primaryColor: Color.primary,
-  },
-});
-
-window.addEventListener("resize", adjustRem());
+initTheme();
+testTheme();
 
 renderVseView({
   mainView,
