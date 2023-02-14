@@ -29,6 +29,7 @@ specifiers:
   react-router-dom: ^6.8.1
   recursive-readdir: ^2.2.3
   ts-loader: 9.4.2
+  tsconfig-paths: ^4.1.2
   typescript: 4.9.5
   webpack: 5.75.0
 
@@ -63,6 +64,7 @@ devDependencies:
   react-router-dom: registry.npmmirror.com/react-router-dom/6.8.1_sfoxds7t5ydpegc3knd667wn6m
   recursive-readdir: registry.npmmirror.com/recursive-readdir/2.2.3
   ts-loader: registry.npmmirror.com/ts-loader/9.4.2_hhrrucqyg4eysmfpujvov2ym5u
+  tsconfig-paths: registry.npmmirror.com/tsconfig-paths/4.1.2
   typescript: registry.npmmirror.com/typescript/4.9.5
   webpack: registry.npmmirror.com/webpack/5.75.0
 
@@ -10670,13 +10672,24 @@ packages:
     dependencies:
       chalk: registry.npmmirror.com/chalk/4.1.2
       enhanced-resolve: registry.npmmirror.com/enhanced-resolve/5.12.0
-      tsconfig-paths: registry.npmmirror.com/tsconfig-paths/4.1.0
+      tsconfig-paths: registry.npmmirror.com/tsconfig-paths/4.1.2
     dev: true
 
   registry.npmmirror.com/tsconfig-paths/4.1.0:
     resolution: {integrity: sha512-AHx4Euop/dXFC+Vx589alFba8QItjF+8hf8LtmuiCwHyI4rHXQtOOENaM8kvYf5fR0dRChy3wzWIZ9WbB7FWow==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/tsconfig-paths/-/tsconfig-paths-4.1.0.tgz}
     name: tsconfig-paths
     version: 4.1.0
+    engines: {node: '>=6'}
+    dependencies:
+      json5: registry.npmmirror.com/json5/2.2.3
+      minimist: registry.npmmirror.com/minimist/1.2.7
+      strip-bom: registry.npmmirror.com/strip-bom/3.0.0
+    dev: true
+
+  registry.npmmirror.com/tsconfig-paths/4.1.2:
+    resolution: {integrity: sha512-uhxiMgnXQp1IR622dUXI+9Ehnws7i/y6xvpZB9IbUVOPy0muvdvgXeZOn88UcGPiT98Vp3rJPTa8bFoalZ3Qhw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/tsconfig-paths/-/tsconfig-paths-4.1.2.tgz}
+    name: tsconfig-paths
+    version: 4.1.2
     engines: {node: '>=6'}
     dependencies:
       json5: registry.npmmirror.com/json5/2.2.3

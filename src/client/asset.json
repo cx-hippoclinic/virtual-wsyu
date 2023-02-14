@@ -4,7 +4,13 @@
   "login_bg": "login/bg.png",
   "login_btnAsExpert": "login/btnAsExpert.png",
   "login_btnLogin": "login/btnLogin.png",
+  "login_logo": "login/logo.png",
   "login_btnRegister": "login/btnRegister.png",
   "login_title": "login/title.png",
-  "login_logo": "login/logo.png"
+  "components_header_back": "components/header/back.png",
+  "components_header_bg": "components/header/bg.png",
+  "components_header_text_snippet": "components/header/text_snippet.png",
+  "components_header_process": "components/header/process.png",
+  "components_header_Information": "components/header/Information.png",
+  "play_currency_bg": "play/currency/bg.png"
 }
