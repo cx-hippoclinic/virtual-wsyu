@@ -15,7 +15,8 @@ import {
   PushType,
   subGameConfigList,
 } from "../config";
-import { Introduction } from "./Intruduction";
+import { Introduction } from "./Introduction";
+import { SubGameList } from "./SubgameList";
 
 async function initState(mainGameId: string): Promise<{}> {
   const subGameParams: TAddSubGameInput<{}>[] = [];
@@ -35,6 +36,11 @@ async function initState(mainGameId: string): Promise<{}> {
     introPhases: {
       phases: introPhases.currency,
       subPhases: introSubPhases.intro,
+      questionChose: {
+        [introPhases.currency]: [],
+        [introPhases.risk]: [],
+        [introPhases.securities]: [],
+      },
     },
   };
 }
@@ -60,7 +66,7 @@ export function Play({
   switch (apiState.page) {
     case Page.intro:
       return <Introduction nextPage={() => setApiState({ page: Page.play })} />;
-    // case Page.play:
-    //   return <SubgameList prePage={() => setApiState({ page: Page.intro })} />;
+    case Page.play:
+      return <SubGameList />;
   }
 }

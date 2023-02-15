@@ -1,4 +1,4 @@
-import { Asset } from "@client";
+import { Asset, Style } from "@client";
 import { css, cx, injectGlobal } from "@emotion/css";
 import { Col, Modal, Row } from "antd";
 import { useEffect } from "react";
@@ -121,10 +121,8 @@ export function Header({
               Modal.info({
                 title: "",
                 centered: true,
-                style: {
-                  background: "radial-gradient(97.85% 318.81% at 99% 3.69%, #001E65 0%, #15002F 41.55%, #0D2654 100%)",
-                  borderRadius: "1.14rem",
-                },
+                mask: false,
+                style: Style.modelWrapperStyle,
                 width: "94rem",
                 closable: false,
                 okButtonProps: { style: { display: "none" } },

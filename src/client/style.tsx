@@ -31,4 +31,21 @@ export namespace Style {
     font-size: 2rem;
     color: ${Color.light};
   `;
+  export const modelWrapperStyle = {
+    background: "radial-gradient(97.85% 318.81% at 99% 3.69%, #001E65 0%, #15002F 41.55%, #0D2654 100%)",
+    borderRadius: "1.14rem",
+    height: "57.1rem",
+  };
+  export const contentWrapper = css`
+    background: radial-gradient(97.85% 318.81% at 99% 3.69%, #001e65 0%, #15002f 41.55%, #0d2654 100%);
+    border-radius: 1.14rem;
+    width: 94.86rem;
+    height: 57.1rem;
+    border: 3px solid #1d3175;
+    box-shadow: 0 4px 4px #000000;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    padding-top: 5rem;
+  `;
 }

@@ -2,7 +2,15 @@ import { Color, ColorDerived } from "@client";
 import { css, cx } from "@emotion/css";
 import { useState } from "react";
 
-function ViewStep({ active, stepArr }: { active: number; stepArr: { name: string; detail: string }[] }) {
+function ViewStep({
+  active,
+  stepArr,
+  hasButton,
+}: {
+  active: number;
+  stepArr: { name: string; detail: string }[];
+  hasButton?: boolean;
+}) {
   const [activeIndex, setActiveIndex] = useState(active);
   return (
     <div
@@ -68,12 +76,13 @@ function ViewStep({ active, stepArr }: { active: number; stepArr: { name: string
       </div>
       <div
         className={css`
-          height: 48.7rem;
+          font-size: 1.7rem;
+          height: ${hasButton ? "44rem" : "48.7rem"};
           margin-left: 2.6rem;
-          border: 1px solid #57a3a0;
-          border-radius: 0.8rem;
+          border-radius: 1rem;
           width: 101.6rem;
-          background-color: #f1f6f3;
+          background-color: ${Color.primary};
+          color: #ffffff;
         `}
       >
         {stepArr[activeIndex].detail}
