@@ -1,5 +1,6 @@
 import { IMainView, ISubView } from "@ancademy/vse-client";
 import { injectGlobal } from "@emotion/css";
+import { Phase1View } from "../Phase1";
 import { Lobby } from "./Lobby";
 import { Login } from "./Login";
 import { Play } from "./Play";
@@ -24,4 +25,4 @@ export const mainView: IMainView = {
   Play,
 };
 
-export const subViewList: ISubView[] = [];
+export const subViewList: ISubView[] = [Phase1View];

@@ -1,5 +1,6 @@
-import { IMainLogic, ISubLogic, MainLogic } from "@ancademy/vse-server";
+import { IMainLogic, ISubLogic, MainLogic, SubLogic } from "@ancademy/vse-server";
 import { IActor, IMoveCallback, TGameState, TPlayerState } from "@ancademy/vse-share";
+import { subGameConfigList } from "../common/config";
 import {
   ICreateParams,
   IGameState,
@@ -12,7 +13,10 @@ import {
   SubGameStatus,
 } from "./config";
 
-export const subLogicList: ISubLogic[] = [];
+export const subLogicList: ISubLogic[] = subGameConfigList.map(({ namespace }) => ({
+  namespace,
+  Logic: SubLogic,
+}));
 
 export class Logic extends MainLogic<
   ICreateParams,

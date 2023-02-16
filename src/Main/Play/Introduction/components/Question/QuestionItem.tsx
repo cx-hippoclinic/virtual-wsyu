@@ -1,7 +1,7 @@
 import { Asset, ColorDerived, Theme } from "@client";
 import { css, cx } from "@emotion/css";
 import { Radio, Space } from "antd";
-import { questionState } from "../../../config";
+import { questionState } from "../../../../config";
 
 interface propType {
   data: questionState;
@@ -57,9 +57,9 @@ export function QuestionItem({ data, chose, onChange, isReview }: propType) {
           {data.answer.map((it, i) => {
             const resultRender =
               i === data.current ? (
-                <img src={Asset.play_components_true} alt="" />
+                <img src={Asset.play_Introduction_true} alt="" />
               ) : (
-                i === chose && <img src={Asset.play_components_error} alt="" />
+                i === chose && <img src={Asset.play_Introduction_error} alt="" />
               );
             return (
               <div

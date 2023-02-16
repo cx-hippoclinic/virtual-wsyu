@@ -3,7 +3,7 @@ import { Asset, Color, Style, Theme } from "@client";
 import { css, cx } from "@emotion/css";
 import { Button, Divider } from "antd";
 import { useEffect, useState } from "react";
-import { IPlayerState, questionState } from "../../../config";
+import { IPlayerState, questionState } from "../../../../config";
 import { QuestionItem } from "./QuestionItem";
 
 interface questionProps {
@@ -104,7 +104,7 @@ export function Question({ questionChose, questionList, nextPage, isReview }: qu
               `}
             >
               <img
-                src={Asset.play_components_WarningWhite}
+                src={Asset.play_Introduction_WarningWhite}
                 alt=""
                 className={css`
                   margin-right: 0.64rem;

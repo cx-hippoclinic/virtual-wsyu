@@ -1,9 +1,9 @@
 import { useApiPlay } from "@ancademy/vse-client";
-import { Asset, Background, Header, PageContent } from "@client";
+import { Asset, Background, Header, Intra, PageContent } from "@client";
 import { css } from "@emotion/css";
 import { useViewConfig } from "../../../../common/util/hooks";
 import { introSubPhases, IPlayerState } from "../../../config";
-import { Intro, IntroDetail, Question } from "../components";
+import { IntroDetail, Question } from "../components";
 
 export function Common({ nextPage }: { nextPage: () => void }) {
   const { apiState, setApiState } = useApiPlay<IPlayerState>();
@@ -17,8 +17,9 @@ export function Common({ nextPage }: { nextPage: () => void }) {
   switch (apiState.introPhases.subPhases) {
     case introSubPhases.intro:
       content = (
-        <Intro
+        <Intra
           content={intro}
+          showAnswer={!hasIntroDetail}
           nextPage={getNextPage(hasIntroDetail ? introSubPhases.introDetail : introSubPhases.question)}
         />
       );
@@ -53,7 +54,7 @@ export function Common({ nextPage }: { nextPage: () => void }) {
         overflow: hidden;
       `}
     >
-      <Background src={Asset.play_components_bg} />
+      <Background src={Asset.play_Introduction_bg} />
       <Header title={title} />
       <PageContent>{content}</PageContent>
     </div>

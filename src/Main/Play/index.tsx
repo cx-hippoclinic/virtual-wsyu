@@ -2,6 +2,7 @@ import { api, Core, useApiPlay } from "@ancademy/vse-client";
 import { ISubGame, TAddSubGameInput } from "@ancademy/vse-share";
 import { Skeleton } from "antd";
 import { useEffect } from "react";
+import { subGameConfigList } from "../../common/config";
 import {
   ICreateParams,
   IGameState,
@@ -13,10 +14,9 @@ import {
   MoveType,
   Page,
   PushType,
-  subGameConfigList,
 } from "../config";
 import { Introduction } from "./Introduction";
-import { SubGameList } from "./SubgameList";
+import { SubgameList } from "./SubgameList";
 
 async function initState(mainGameId: string): Promise<{}> {
   const subGameParams: TAddSubGameInput<{}>[] = [];
@@ -67,6 +67,6 @@ export function Play({
     case Page.intro:
       return <Introduction nextPage={() => setApiState({ page: Page.play })} />;
     case Page.play:
-      return <SubGameList />;
+      return <SubgameList />;
   }
 }

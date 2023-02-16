@@ -1,5 +1,6 @@
-export function loremIpsum(len = 1e3) {
-  return Array<string>(~~(Math.random() * len + len) >> 1)
-    .fill("x")
-    .join("");
+export function fmtTime(s: number) {
+  if (!s) {
+    return "??:??";
+  }
+  return `${(~~(s / 60)).toString().padStart(2, "0")}:${(s % 60).toString().padStart(2, "0")}`;
 }

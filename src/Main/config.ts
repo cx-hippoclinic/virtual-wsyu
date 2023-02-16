@@ -238,31 +238,7 @@ export const subGameViewConfigList: introPhasesViewConfig[] = [
     defQuestionList: questionList[introPhases.securities],
   },
 ];
+
 export function getSubGameViewConfig(namespace: introPhases) {
   return subGameViewConfigList.find((s) => s.namespace === namespace);
 }
-
-export enum SubNamespace {
-  phase1 = "phase1",
-  phase2 = "phase2",
-  phase3 = "phase3",
-}
-export interface ISubGameConfig {
-  namespace: SubNamespace;
-  label: string;
-}
-
-export const subGameConfigList: ISubGameConfig[] = [
-  {
-    namespace: SubNamespace.phase1,
-    label: "材料供应商",
-  },
-  {
-    namespace: SubNamespace.phase2,
-    label: "银行信贷",
-  },
-  {
-    namespace: SubNamespace.phase3,
-    label: "医疗企业",
-  },
-];

@@ -14,6 +14,7 @@ export const PageContent: React.FC<{
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
+        position: "relative",
       }}
     >
       {children}
