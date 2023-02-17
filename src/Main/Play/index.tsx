@@ -1,20 +1,9 @@
-import { api, Core, useApiPlay } from "@ancademy/vse-client";
+import { api, useApiPlay } from "@ancademy/vse-client";
 import { ISubGame, TAddSubGameInput } from "@ancademy/vse-share";
 import { Skeleton } from "antd";
 import { useEffect } from "react";
 import { subGameConfigList } from "../../common/config";
-import {
-  ICreateParams,
-  IGameState,
-  IMoveParams,
-  introPhases,
-  introSubPhases,
-  IPlayerState,
-  IPushParams,
-  MoveType,
-  Page,
-  PushType,
-} from "../config";
+import { introPhases, introSubPhases, IPlayerState, Page } from "../config";
 import { Introduction } from "./Introduction";
 import { SubgameList } from "./SubgameList";
 
@@ -32,7 +21,7 @@ async function initState(mainGameId: string): Promise<{}> {
       id,
       namespace,
     })),
-    page: Page.intro,
+    page: Page.play,
     introPhases: {
       phases: introPhases.currency,
       subPhases: introSubPhases.intro,
@@ -44,15 +33,7 @@ async function initState(mainGameId: string): Promise<{}> {
     },
   };
 }
-export function Play({
-  gameState: {},
-  playerState: {
-    subGameList,
-    actor: { token },
-  },
-  game,
-  frameEmitter,
-}: Core.IPlayProps<ICreateParams, IGameState, IPlayerState, MoveType, PushType, IMoveParams, IPushParams>) {
+export function Play({ game }: any) {
   const { apiState, setApiState } = useApiPlay<IPlayerState>();
   useEffect(() => {
     if (apiState.inited) {

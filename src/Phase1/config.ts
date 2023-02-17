@@ -1,4 +1,3 @@
-import { Actor } from "@ancademy/vse-share";
 import { SubNamespace } from "../common/config";
 
 export const namespace = SubNamespace.phase1;
@@ -10,76 +9,19 @@ export enum StepPages {
 export interface IPlayerState {
   inited: boolean;
   pages: StepPages;
-  m: number;
-  init_m: number;
-  q: number;
-  init_q: number;
-  myShouts: number[];
+  myShoutsCount: number;
+  money: number;
 }
 
 export enum Role {
   seller = "seller",
   buyer = "buyer",
 }
-
-export interface IShoutRecord {
-  id: number;
-  owner: string;
-  role: Role;
-  count: number;
-  price: number;
-  leftCount: number;
-  closeTime?: number;
-  canceled?: boolean;
-}
 export function fmtN(n: number, digit = 2) {
   const _n = +n;
   return Number.isNaN(_n) ? null : +_n.toFixed(digit).toString();
 }
 
-export interface IShout {
-  owner: string;
-  ownerType: Actor;
-  id: number;
-  role: Role;
-  count: number;
-  price: number;
-  tradeCount: number;
-  closeTime: number;
-  tradePrice?: number;
-  originShout?: number;
-  recordId?: number;
-}
-
-export interface ITradeRecord {
-  time: number;
-  price: number;
-  count: number;
-}
-
-export interface IShoutRecord {
-  id: number;
-  owner: string;
-  role: Role;
-  count: number;
-  price: number;
-  leftCount: number;
-  closeTime?: number;
-  canceled?: boolean;
-}
-export interface IGameState {
-  playerIndex: number;
-  time: number;
-  shoutId: number;
-  shouts: IShout[];
-  shoutRecord: IShoutRecord[];
-  buyShoutIds: number[];
-  sellShoutIds: number[];
-  tradeRecord: ITradeRecord[];
-}
-export interface ICreateParams {
-  tradeTime: number;
-}
 export enum goodsType {
   hocus = "hocus",
   breathe = "breathe",
@@ -131,6 +73,8 @@ export interface TradeRecode {
   count: number;
   owner: User;
   statue: TradeStatue;
+  round: number;
+  time: number;
 }
 export interface IPageTradeState {
   inited: boolean;
@@ -142,7 +86,15 @@ export interface IPageTradeState {
     have: Record<goodsType, number>;
   };
 }
-
+export interface rankDataItem {
+  name: string;
+  count: number;
+  money: number;
+}
+export interface IPageTradeResultState {
+  inited: boolean;
+  rankData: rankDataItem[];
+}
 export const TradeStatueToTag = {
   [TradeStatue.waiting]: "挂牌中",
   [TradeStatue.success]: "已完成",

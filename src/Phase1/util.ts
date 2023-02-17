@@ -28,7 +28,7 @@ export const goodPriceRefer = {
 export function mockTradeRecode(during, setApiState) {
   return;
 }
-export function calcTradeSuccess(goodsType, price) {
+export function calcBuySuccess(goodsType, price) {
   const data = goodPriceRefer[goodsType];
   if (price < data.minPrice) {
     return false;
@@ -36,5 +36,15 @@ export function calcTradeSuccess(goodsType, price) {
     return Math.random() > 0.5;
   } else {
     return Math.random() > 0.5 - ((price - data.minPrice) / (data.maxPrice - data.minPrice)) * 0.5;
+  }
+}
+export function calcSellSuccess(goodsType, price) {
+  const data = goodPriceRefer[goodsType];
+  if (price < data.minPrice) {
+    return true;
+  } else if (price === data.minPrice) {
+    return Math.random() > 0.5;
+  } else {
+    return Math.random() > 0.5 + ((price - data.minPrice) / (data.maxPrice - data.minPrice)) * 0.5;
   }
 }

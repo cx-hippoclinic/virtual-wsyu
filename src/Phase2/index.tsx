@@ -3,13 +3,10 @@ import { Asset, Background, Header, Intra, PageContent } from "@client";
 import { css } from "@emotion/css";
 import { Skeleton } from "antd";
 import { ReactNode, useEffect } from "react";
-import { getSubGameConfig, SubNamespace } from "../common/config";
+import { getSubGameConfig } from "../common/config";
 import { IPlayerState, namespace, StepPages } from "./config";
-import { TPlayPageProps } from "./interface";
-import { Result } from "./pages/Result";
-import { Trade } from "./pages/Trade";
 
-function Play(props: TPlayPageProps) {
+function Play(props) {
   const { apiState, setApiState } = useApiPlay<IPlayerState>();
   useEffect(() => {
     if (apiState.inited) {
@@ -34,10 +31,7 @@ function Play(props: TPlayPageProps) {
       content = <Intra content={intra} nextPage={getNextPage(StepPages.play)} />;
       break;
     case StepPages.play:
-      content = <Trade {...props} nextPage={getNextPage(StepPages.result)} prePage={getNextPage(StepPages.intra)} />;
-      break;
-    case StepPages.result:
-      content = <Result {...props} nextPage={() => history.back()} />;
+      content = <div></div>;
       break;
   }
   if (!apiState.inited) {
@@ -50,23 +44,15 @@ function Play(props: TPlayPageProps) {
         overflow: hidden;
       `}
     >
-      <Background src={apiState.pages === StepPages.result ? Asset.play_phase1_res_bg : Asset.play_phase1_bg} />
+      <Background src={Asset.play_phase2_bg} />
       <Header title={label} />
       <PageContent>{content}</PageContent>
     </div>
   );
 }
 
-export const Phase1View: ISubView = {
+export const Phase2View: ISubView = {
   namespace,
   Play,
   label: getSubGameConfig(namespace).label,
 };
-export type TSubGameConfig = {
-  namespace: SubNamespace;
-} & Partial<{
-  with_αβ: boolean;
-  with_S: boolean;
-  with_t: boolean;
-  with_trade: boolean;
-}>;

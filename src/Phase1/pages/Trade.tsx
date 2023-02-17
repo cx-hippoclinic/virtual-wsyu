@@ -1,18 +1,18 @@
-import { useApiState } from "@ancademy/vse-client";
+import { useApiPlay, useApiState } from "@ancademy/vse-client";
 import { Asset, Color, Style, Theme } from "@client";
 import { css, cx, injectGlobal } from "@emotion/css";
 import { Button, Col, Divider, Form, InputNumber, message, Popover, Radio, Row, Space, Spin, Table, Tabs } from "antd";
 import { Chart, LineAdvance } from "bizcharts";
 import _, { mean, sum } from "lodash";
 import { useEffect, useState } from "react";
-import { fmtTime } from "../../common/util";
 
-import { Countdown } from "@client/component/Countdown";
+import { Countdown, useTimer } from "@client/component/Countdown";
 import {
   fmtN,
   goodsType,
   GoodsTypeToTag,
   IPageTradeState,
+  IPlayerState,
   orderDetailData,
   Role,
   TradeRecode,
@@ -21,15 +21,18 @@ import {
   User,
 } from "../config";
 import { TPlayPageProps } from "../interface";
-import { calcTradeSuccess, goodPriceRefer, randomCount } from "../util";
+import { calcBuySuccess, calcSellSuccess, goodPriceRefer, randomCount } from "../util";
 
 const Column = Table.Column;
 const TabPane = Tabs.TabPane;
+const maxRound = 12;
+const roundTime = 60;
 
-export function Trade({ ...props }: TPlayPageProps) {
-  const { game } = props;
+export function Trade({ ...props }: TPlayPageProps & { nextPage: () => void; prePage: () => void }) {
+  const { game, nextPage, prePage } = props;
   const gameId = game.id;
   const { loading, apiState, setApiState } = useApiState<IPageTradeState>(gameId, "schedulerKey");
+  const { setApiState: setApiPlayState } = useApiPlay<IPlayerState>();
   useEffect(() => {
     if (loading) {
       return;
@@ -39,8 +42,8 @@ export function Trade({ ...props }: TPlayPageProps) {
     }
     setApiState({
       inited: true,
-      tradeRecodes: [],
-      leftTime: 60,
+      tradeRecodes: [getTradeRecodes()],
+      leftTime: roundTime,
       round: 1,
       myAccount: {
         money: 1000000,
@@ -84,6 +87,9 @@ export function Trade({ ...props }: TPlayPageProps) {
         background: transparent !important;
         color: #ffffff; !important;
       }
+      .ant-table-cell-scrollbar:not([rowspan]) {
+         box-shadow: unset!important;
+      }
       .ant-table-placeholder .ant-table-cell {
         background: transparent!important;
       }
@@ -106,33 +112,27 @@ export function Trade({ ...props }: TPlayPageProps) {
       }
     `;
   }, []);
-  const publishSell = () => {
+  const getTradeRecodes = () => {
     const type = _.sample(Object.values(goodsType)) as goodsType;
     const data = goodPriceRefer[type];
+    return {
+      id: (apiState?.tradeRecodes?.length || 0) + 1,
+      owner: User.other,
+      count: randomCount(data.minCount, data.maxCount),
+      price: Math.floor(randomCount(data.minPrice, data.maxPrice) / 100) * 100,
+      type,
+      statue: TradeStatue.waiting,
+      role: Role.seller,
+      round: apiState.round,
+      time: roundTime,
+    };
+  };
+  const publishSell = () => {
     setApiState((s) => {
-      s.tradeRecodes = [
-        ...s.tradeRecodes,
-        {
-          id: s.tradeRecodes.length + 1,
-          owner: User.other,
-          count: randomCount(data.minCount, data.maxCount),
-          price: Math.floor(randomCount(data.minPrice, data.maxPrice) / 100) * 100,
-          type,
-          statue: TradeStatue.waiting,
-          role: Role.seller,
-        },
-      ];
+      s.tradeRecodes = [...s.tradeRecodes, getTradeRecodes()];
     });
   };
-  useEffect(() => {
-    if (!setApiState || loading) {
-      return;
-    }
-    if (apiState.tradeRecodes.filter((it) => it.owner === User.other).length === apiState.round) {
-      return;
-    }
-    publishSell();
-  }, [loading]);
+  const t = useTimer(apiState?.leftTime || roundTime);
   if (loading || !apiState.inited) {
     return null;
   }
@@ -154,38 +154,43 @@ export function Trade({ ...props }: TPlayPageProps) {
           >
             <div
               className={css`
-                width: 32rem;
-                height: 16rem;
+                min-width: 44rem;
+                height: 31rem;
                 padding: 2rem;
-                margin: auto;
-                box-shadow: inset 0 1px 1rem ${Color.disabled};
                 display: flex;
                 align-items: center;
+                background: linear-gradient(180deg, #06132a 0%, #081837 100%);
+                border: 5px solid #23549e;
+                border-radius: 15px;
               `}
             >
-              <MarketChart {...props} />
+              <MarketChart chartData={apiState.tradeRecodes} round={apiState.round} />
             </div>
             <Tabs
               centered
               type="card"
               className={css`
                 min-width: 36rem;
-                margin-left: -2rem;
               `}
             >
               <TabPane tab="订单详情" key="orderDetail">
-                <Table size="small" dataSource={orderDetailData} pagination={false}>
-                  <Table.Column title="麻醉机：（数量/单价）" dataIndex={goodsType.hocus} />
-                  <Table.Column title="呼吸机：（数量/单价）" dataIndex={goodsType.breathe} />
-                  <Table.Column title="超声仪：（数量/单价）" dataIndex={goodsType.ultrasound} />
-                </Table>
+                <Space
+                  className={css`
+                    background: linear-gradient(180deg, #06132a 0%, #081837 100%);
+                    border: 5px solid #23549e;
+                    border-radius: 15px;
+                    padding: 1rem;
+                    border-radius: 15px;
+                  `}
+                >
+                  <Table size="small" dataSource={orderDetailData} pagination={false}>
+                    <Table.Column title="麻醉机：（数量/单价）" dataIndex={goodsType.hocus} />
+                    <Table.Column title="呼吸机：（数量/单价）" dataIndex={goodsType.breathe} />
+                    <Table.Column title="超声仪：（数量/单价）" dataIndex={goodsType.ultrasound} />
+                  </Table>
+                </Space>
               </TabPane>
             </Tabs>
-            {/*
-              <Button className={Style.darkButton} onClick={() => frameEmitter.emit(MoveType.callAuction)}>
-                集合竞价
-              </Button>
-              */}
           </Space>
         </Col>
         <Col span={6}>
@@ -259,18 +264,36 @@ export function Trade({ ...props }: TPlayPageProps) {
                                   type,
                                   statue: TradeStatue.waiting,
                                   role,
+                                  round: s.round,
+                                  time: t,
                                 },
                               ];
                             });
                             setTimeout(() => {
-                              const res = calcTradeSuccess(type, price);
+                              // buy
+                              const BuyRes = calcBuySuccess(type, price);
+                              const SellRes = calcSellSuccess(type, price);
                               setApiState((s) => {
                                 const data = s.tradeRecodes.find((it) => it.id === apiState.tradeRecodes.length + 1);
+                                const res = data.role === Role.seller ? SellRes : BuyRes;
                                 s.tradeRecodes = s.tradeRecodes
                                   .filter((it) => it.id !== id)
-                                  .concat({ ...data, statue: res ? TradeStatue.success : TradeStatue.fail });
+                                  .concat({
+                                    ...data,
+                                    statue: res ? TradeStatue.success : TradeStatue.fail,
+                                    round: s.round,
+                                    time: t,
+                                  });
                                 if (res) {
-                                  s.myAccount.money -= price * count;
+                                  if (data.role === Role.buyer) {
+                                    s.myAccount.money -= price * count;
+                                  } else {
+                                    s.myAccount.have = {
+                                      ...s.myAccount.have,
+                                      [data.type]: s.myAccount.have[data.type] - data.count,
+                                    };
+                                    s.myAccount.money += price * count;
+                                  }
                                 }
                               });
                             }, 5000);
@@ -318,7 +341,7 @@ export function Trade({ ...props }: TPlayPageProps) {
                     font-size: 1.14rem;
                   `
                 )}
-                onClick={() => {}}
+                onClick={prePage}
               >
                 <img
                   src={Asset.play_phase1_leave}
@@ -337,6 +360,13 @@ export function Trade({ ...props }: TPlayPageProps) {
       <GameDataComp
         gameState={apiState}
         nextRound={() => {
+          if (apiState.round >= maxRound) {
+            setApiPlayState((s) => {
+              s.money = apiState.myAccount.money;
+              s.myShoutsCount = apiState.tradeRecodes.filter((it) => it.owner === User.me).length;
+            });
+            nextPage();
+          }
           setApiState((s) => {
             s.round = s.round + 1;
           });
@@ -347,18 +377,53 @@ export function Trade({ ...props }: TPlayPageProps) {
   );
 }
 
-function MarketChart({ gameState: { shouts = [] } }: TPlayPageProps) {
-  const data = shouts
-    .filter((s) => !s.closeTime)
-    .map(({ price, count, role }) => ({
-      price,
-      count,
-      role: role === Role.buyer ? "买家" : "卖家",
-    }))
-    .sort((m, n) => m.count - n.count);
+function MarketChart({ chartData, round }: { chartData: TradeRecode[]; round: number }) {
+  const data = chartData.filter((s) => s.role === Role.seller);
+  const hocusData = data.filter((s) => s.type === goodsType.hocus);
+  const breatheData = data.filter((s) => s.type === goodsType.breathe);
+  const ultrasoundData = data.filter((s) => s.type === goodsType.ultrasound);
+  function getData(arr, type) {
+    let total = 0;
+    let resArr = [];
+    for (let i = 1; i <= round; i++) {
+      const res = arr.find((it) => it.round === i);
+      console.log(res);
+      if (res) {
+        total += res.count;
+        resArr.push({
+          ...res,
+          count: total,
+        });
+      } else {
+        resArr.push({
+          type,
+          count: total,
+          round: i,
+        });
+      }
+    }
+    return resArr;
+  }
+  const result = [
+    ...getData(hocusData, goodsType.hocus),
+    ...getData(breatheData, goodsType.breathe),
+    ...getData(ultrasoundData, goodsType.ultrasound),
+  ];
+  console.log(result);
+  const scale = {
+    type: {
+      formatter: (v) => {
+        return {
+          [goodsType.hocus]: "麻醉机",
+          [goodsType.breathe]: "呼吸机",
+          [goodsType.ultrasound]: "超声仪",
+        }[v];
+      },
+    },
+  };
   return (
-    <Chart autoFit height={200} data={[...data]}>
-      <LineAdvance shape="smooth" point area position="count*price" color="role" />
+    <Chart autoFit scale={scale} height={300} padding={[0, 20, 50, 40]} data={result}>
+      <LineAdvance shape="smooth" point area position="round*count" color="type" />
     </Chart>
   );
 }
@@ -370,6 +435,7 @@ const sortShoutRecord = (a: TradeRecode, b: TradeRecode) => {
 function MarketTable({ shoutRecord }: { shoutRecord: TradeRecode[] }) {
   const sellData = shoutRecord?.filter(({ role }) => role === Role.seller).sort(sortShoutRecord),
     buyData = shoutRecord?.filter(({ role }) => role === Role.buyer).sort(sortShoutRecord);
+
   const titleCls = css`
       width: 1.7rem;
       font-size: 1.7rem;
@@ -492,59 +558,58 @@ function MarketTable({ shoutRecord }: { shoutRecord: TradeRecode[] }) {
         </Space>
       </Space>
       <Tabs type="card" size="middle" centered>
-        <TabPane tab="超声机" key="ultrasound">
-          <Space
-            className={css`
-              background: linear-gradient(180deg, #06132a 0%, #081837 100%);
-              border: 5px solid #23549e;
-              padding: 1rem;
-              border-radius: 15px;
-            `}
-          >
-            <Table
-              {...tableProps}
-              // dataSource={tradeRecord}
-              className={css`
-                height: 15rem;
-                width: 34.5rem;
-              `}
-            >
-              <Column title="时间" dataIndex="time" render={fmtTime} align="center" />
-              <Column title="单价" dataIndex="price" align="center" />
-              <Column title="成交量" dataIndex="count" align="center" />
-            </Table>
-          </Space>
-        </TabPane>
-        <TabPane tab="呼吸机" key="breathe">
-          <Space
-            className={css`
-              background: linear-gradient(180deg, #06132a 0%, #081837 100%);
-              border: 5px solid #23549e;
-              padding: 1rem;
-              border-radius: 15px;
-            `}
-          >
-            <Table
-              {...tableProps}
-              // dataSource={tradeRecord}
-              className={css`
-                height: 15rem;
-                width: 34.5rem;
-              `}
-            >
-              <Column title="时间" dataIndex="time" render={fmtTime} align="center" />
-              <Column title="单价" dataIndex="price" align="center" />
-              <Column title="成交量" dataIndex="count" align="center" />
-            </Table>
-          </Space>
-        </TabPane>
+        {Object.values(goodsType).map((it) => {
+          const Data = shoutRecord
+            ?.filter(
+              ({ type: itType, owner, statue }) => itType === it && owner === User.me && statue === TradeStatue.success
+            )
+            .sort(sortShoutRecord);
+          return (
+            <TabPane tab={GoodsTypeToTag[it]} key={it}>
+              <Space
+                className={css`
+                  background: linear-gradient(180deg, #06132a 0%, #081837 100%);
+                  border: 5px solid #23549e;
+                  padding: 1rem;
+                  border-radius: 15px;
+                `}
+              >
+                <Table
+                  pagination={false}
+                  size="small"
+                  scroll={{ y: 160 }}
+                  dataSource={Data}
+                  className={css`
+                    height: 15rem;
+                    width: 34.5rem;
+                    //overflow:auto;
+                  `}
+                >
+                  <Column
+                    title="时间"
+                    dataIndex="time"
+                    render={(_, item: TradeRecode) => {
+                      return `${item?.round.toString().padStart(2, "0")}:${(roundTime - _)
+                        .toString()
+                        .padStart(2, "0")}`;
+                    }}
+                    align="center"
+                  />
+                  <Column title="单价" dataIndex="price" align="center" />
+                  <Column title="成交量" dataIndex="count" align="center" />
+                </Table>
+              </Space>
+            </TabPane>
+          );
+        })}
+
+        {/*<TabItem type={goodsType.hocus} key={goodsType.hocus} shoutRecord={shoutRecord} />*/}
       </Tabs>
     </div>
   );
 }
 
 function GameDataComp({ gameState, nextRound }: { gameState: IPageTradeState; nextRound: () => void }) {
-  const [update, setUpdate] = useState(false);
   const boxStyles = css`
     background: rgba(20, 98, 171, 0.63);
     border: 2px solid #0063d8;
@@ -588,7 +653,7 @@ function GameDataComp({ gameState, nextRound }: { gameState: IPageTradeState; ne
             color: #ffffff;
           `}
         >
-          轮次 {gameState.round}/12
+          轮次 {gameState.round}/{maxRound}
         </span>
       </div>
       <div className={boxStyles}>
@@ -598,15 +663,7 @@ function GameDataComp({ gameState, nextRound }: { gameState: IPageTradeState; ne
             color: #ffffff;
           `}
         >
-          本轮剩余时间{" "}
-          <Countdown
-            initCount={gameState.leftTime}
-            todo={() => {
-              nextRound();
-              setUpdate(!update);
-            }}
-            update={update}
-          />
+          本轮剩余时间 <Countdown initCount={gameState.leftTime} todo={nextRound} />
         </span>
       </div>
     </Space>
