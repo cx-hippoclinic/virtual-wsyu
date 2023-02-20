@@ -7,10 +7,9 @@ import _, { mean, sum } from "lodash";
 import { useEffect, useState } from "react";
 
 import { Countdown, useTimer } from "@client/component/Countdown";
+import { goodsType, GoodsTypeToTag } from "../../common/config";
 import {
   fmtN,
-  goodsType,
-  GoodsTypeToTag,
   IPageTradeState,
   IPlayerState,
   orderDetailData,

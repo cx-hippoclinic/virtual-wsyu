@@ -1,4 +1,4 @@
-import { SubNamespace } from "../common/config";
+import { goodsType, SubNamespace } from "../common/config";
 
 export const namespace = SubNamespace.phase1;
 export enum StepPages {
@@ -22,11 +22,6 @@ export function fmtN(n: number, digit = 2) {
   return Number.isNaN(_n) ? null : +_n.toFixed(digit).toString();
 }
 
-export enum goodsType {
-  hocus = "hocus",
-  breathe = "breathe",
-  ultrasound = "ultrasound",
-}
 export const orderDetailData = [
   {
     key: 1,
@@ -99,9 +94,4 @@ export const TradeStatueToTag = {
   [TradeStatue.waiting]: "挂牌中",
   [TradeStatue.success]: "已完成",
   [TradeStatue.fail]: "已撤回",
-};
-export const GoodsTypeToTag = {
-  [goodsType.hocus]: "麻醉机",
-  [goodsType.breathe]: "呼吸机",
-  [goodsType.ultrasound]: "超声仪",
 };

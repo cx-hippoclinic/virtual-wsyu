@@ -48,4 +48,44 @@ export namespace Style {
     align-items: center;
     padding-top: 5rem;
   `;
+  export const tableHeaderClass = css`
+    border-radius: 1.14rem;
+    overflow: hidden;
+    border: 2px solid #2B66BF;
+          .ant-table-thead > tr > th {
+            background: linear-gradient(180deg, #3074FD 0%, #2A64BB 100%); !important;
+            color: #ffffff;
+          }
+        `;
 }
+
+export const getRowClassName = (record, index) => {
+  let className = "";
+  className =
+    index % 2 === 0
+      ? css`background:#020711; color: #ffffff; & .ant-table-cell.ant-table-cell-row-hover{background:#0c275a!important; color: #ffffff;`
+      : css`
+          background: #12151d;
+          color: #ffffff;
+          & .ant-table-cell.ant-table-cell-row-hover {
+            background: #071f4c !important;
+            color: #ffffff;
+          }
+        `;
+  return className;
+};
+export const onMainCell = (record, rowIndex) => {
+  if (rowIndex % 2 === 0) {
+    return {
+      style: {
+        backgroundColor: "#0c275a",
+      },
+    };
+  } else {
+    return {
+      style: {
+        backgroundColor: "#071F4C",
+      },
+    };
+  }
+};

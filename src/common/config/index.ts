@@ -34,3 +34,14 @@ export const subGameConfigList: ISubGameConfig[] = [
 export function getSubGameConfig(namespace: SubNamespace) {
   return subGameConfigList.find((s) => s.namespace === namespace);
 }
+
+export enum goodsType {
+  hocus = "hocus",
+  breathe = "breathe",
+  ultrasound = "ultrasound",
+}
+export const GoodsTypeToTag = {
+  [goodsType.hocus]: "麻醉机",
+  [goodsType.breathe]: "呼吸机",
+  [goodsType.ultrasound]: "超声仪",
+};

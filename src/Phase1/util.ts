@@ -1,4 +1,4 @@
-import { goodsType } from "./config";
+import { goodsType } from "../common/config";
 
 export function randomCount(start, end) {
   return Math.floor(Math.random() * (end - start) + start);

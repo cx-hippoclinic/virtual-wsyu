@@ -1,11 +1,12 @@
 import { useApiPlay, useApiState } from "@ancademy/vse-client";
-import { Style, Theme } from "@client";
+import { getRowClassName, onMainCell, Style, Theme } from "@client";
 import { css } from "@emotion/css";
 import { Table } from "antd";
 import { useEffect } from "react";
 import { IPageTradeResultState, IPlayerState } from "../config";
 import { TPlayPageProps } from "../interface";
 import { randomCount } from "../util";
+import tableHeaderClass = Style.tableHeaderClass;
 
 const Column = Table.Column;
 export function Result({ ...props }: TPlayPageProps & { nextPage: () => void }) {
@@ -49,21 +50,6 @@ export function Result({ ...props }: TPlayPageProps & { nextPage: () => void }) 
   if (loading || !apiState.inited) {
     return null;
   }
-  const getRowClassName = (record, index) => {
-    let className = "";
-    className =
-      index % 2 === 0
-        ? css`background:#020711; color: #ffffff; & .ant-table-cell.ant-table-cell-row-hover{background:#0c275a!important; color: #ffffff;`
-        : css`
-            background: #12151d;
-            color: #ffffff;
-            & .ant-table-cell.ant-table-cell-row-hover {
-              background: #071f4c !important;
-              color: #ffffff;
-            }
-          `;
-    return className;
-  };
 
   return (
     <div>
@@ -82,34 +68,9 @@ export function Result({ ...props }: TPlayPageProps & { nextPage: () => void }) 
         dataSource={apiState.rankData}
         pagination={false}
         rowClassName={getRowClassName}
-        className={css`
-          .ant-table-thead > tr > th {
-            background: linear-gradient(180deg, #3074FD 0%, #2A64BB 100%); !important;
-            color: #ffffff;
-          }
-        `}
+        className={tableHeaderClass}
       >
-        <Column
-          title="姓名"
-          dataIndex="name"
-          align="center"
-          width="12rem"
-          onCell={(record, rowIndex) => {
-            if (rowIndex % 2 === 0) {
-              return {
-                style: {
-                  backgroundColor: "#0c275a",
-                },
-              };
-            } else {
-              return {
-                style: {
-                  backgroundColor: "#071F4C",
-                },
-              };
-            }
-          }}
-        />
+        <Column title="姓名" dataIndex="name" align="center" width="12rem" onCell={onMainCell} />
         <Column
           title="交易笔数"
           dataIndex="count"
