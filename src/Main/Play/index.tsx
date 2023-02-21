@@ -23,7 +23,7 @@ async function initState(mainGameId: string): Promise<{}> {
       id,
       namespace,
     })),
-    page: Page.intro,
+    page: Page.play,
     introPhases: {
       phases: introPhases.currency,
       subPhases: introSubPhases.intro,
