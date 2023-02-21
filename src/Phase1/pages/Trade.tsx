@@ -92,23 +92,6 @@ export function Trade({ ...props }: TPlayPageProps & { nextPage: () => void; pre
       .ant-table-placeholder .ant-table-cell {
         background: transparent!important;
       }
-      .ant-tabs-nav {
-        margin: 0 !important;
-        .ant-tabs-tab {
-          padding: 0.7rem 3.14rem;
-          color: #ffffff !important;
-          background: #2b4c7d !important;
-          border-bottom-color: #23549e !important;
-          border-radius: 1rem 1rem 0 0 !important;
-          &.ant-tabs-tab-active {
-            background: #2e6ee0!important;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
-            & .ant-tabs-tab-btn {
-              color: #ffffff !important;
-            }
-          }
-        }
-      }
     `;
   }, []);
   const getTradeRecodes = () => {
@@ -179,7 +162,6 @@ export function Trade({ ...props }: TPlayPageProps & { nextPage: () => void; pre
                     border: 5px solid #23549e;
                     border-radius: 15px;
                     padding: 1rem;
-                    border-radius: 15px;
                   `}
                 >
                   <Table size="small" dataSource={orderDetailData} pagination={false}>

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { subGameConfigList } from "../../common/config";
 import { introPhases, introSubPhases, IPlayerState, Page } from "../config";
 import { Introduction } from "./Introduction";
+import { ResultRank } from "./ResultRank";
 import { SubgameList } from "./SubgameList";
 
 async function initState(mainGameId: string): Promise<{}> {
@@ -13,7 +14,7 @@ async function initState(mainGameId: string): Promise<{}> {
     subGameParams.push({ mainGameId, namespace, params: {} });
   }
   const subGameList = (await api.addManySubGame(mainGameId, subGameParams)) as ISubGame<{}>[];
-  const user = await api.getUser();
+  // const user = await api.getUser();
   // const isExpert = user.role === Role.expert;
   return {
     inited: true,
@@ -48,6 +49,8 @@ export function Play({ game }: any) {
     case Page.intro:
       return <Introduction nextPage={() => setApiState({ page: Page.play })} />;
     case Page.play:
-      return <SubgameList />;
+      return <SubgameList nextPage={() => setApiState({ page: Page.result })} />;
+    case Page.result:
+      return <ResultRank nextPage={() => setApiState({ page: Page.play })} />;
   }
 }

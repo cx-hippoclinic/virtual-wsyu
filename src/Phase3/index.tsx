@@ -33,6 +33,7 @@ function Play(props) {
         s.productionData = {
           choseSize: productionLineSize.small,
           step: ProductionStep.construction,
+          choseOrder: 0,
         };
       });
     }

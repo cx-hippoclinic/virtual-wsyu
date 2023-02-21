@@ -30,7 +30,14 @@ const SubgameItme = ({ txt, img, link }: { txt: string; img: string; link: strin
           margin: 3.92rem auto 0;
         `}
       />
-      <img src={img} alt="" />
+      <img
+        src={img}
+        alt=""
+        className={css`
+          width: 23.7rem;
+          height: 26.1rem;
+        `}
+      />
       <button
         className={cx(
           Btn.primary.sm,
@@ -52,7 +59,7 @@ const SubgameItme = ({ txt, img, link }: { txt: string; img: string; link: strin
     </div>
   );
 };
-export function SubgameList(props) {
+export function SubgameList({ nextPage }: { nextPage: () => void }) {
   const { apiState } = useApiPlay<IPlayerState>();
   const { subGameList } = apiState;
   return (
@@ -84,7 +91,9 @@ export function SubgameList(props) {
             />
           </Space>
           <div className={Style.btnGroup}>
-            <button className={Btn.disabled.sm}>完成</button>
+            <button className={Btn.disabled.sm} onClick={nextPage}>
+              完成
+            </button>
           </div>
         </Space>
       </PageContent>

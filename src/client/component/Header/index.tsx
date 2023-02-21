@@ -176,7 +176,7 @@ export function Header({
                 icon: false,
                 closeIcon: <img src={`deleteBtn.png`} alt="" width={40} height={40} />,
                 maskClosable: true,
-                content: <ProcessComp processActive={processActive} />,
+                content: <ProcessComp />,
               })
             }
           >
@@ -209,7 +209,7 @@ export function Header({
                 icon: false,
                 closeIcon: <img src={`deleteBtn.png`} alt="" width={40} height={40} />,
                 maskClosable: true,
-                content: <ProcessComp processActive={processActive} />,
+                content: <ProcessComp />,
               })
             }
           >

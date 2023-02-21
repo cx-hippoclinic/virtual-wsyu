@@ -27,6 +27,7 @@ export interface IPlayerState {
   productionData: {
     choseSize: productionLineSize;
     step: ProductionStep;
+    choseOrder: number;
   };
 }
 
@@ -65,6 +66,23 @@ export const productionLineToTag = {
   [productionLineSize.middle]: "中型生产线",
   [productionLineSize.large]: "大型生产线",
 };
+export const productionCapacity: Record<productionLineSize, Record<goodsType, number>> = {
+  [productionLineSize.small]: {
+    [goodsType.hocus]: 120,
+    [goodsType.breathe]: 90,
+    [goodsType.ultrasound]: 40,
+  },
+  [productionLineSize.middle]: {
+    [goodsType.hocus]: 150,
+    [goodsType.breathe]: 120,
+    [goodsType.ultrasound]: 80,
+  },
+  [productionLineSize.large]: {
+    [goodsType.hocus]: 180,
+    [goodsType.breathe]: 150,
+    [goodsType.ultrasound]: 100,
+  },
+};
 
 export enum ProductionStep {
   construction,
@@ -73,3 +91,9 @@ export enum ProductionStep {
   pay,
   nextPay,
 }
+//TODO 文档中无订单相关数据
+export const mockOrder = {
+  [goodsType.hocus]: 200,
+  [goodsType.breathe]: 100,
+  [goodsType.ultrasound]: 100,
+};
