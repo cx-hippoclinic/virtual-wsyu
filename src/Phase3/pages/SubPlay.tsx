@@ -1,6 +1,6 @@
 import { useApiPlay } from "@ancademy/vse-client";
 import { IPlayerState, SubPages } from "../config";
-import { Bank, Info, Inventory, Material, Navigate, Strategic } from "./";
+import { Bank, Info, Inventory, Material, Navigate, Production, Strategic } from "./";
 
 export function SubPlay(props) {
   const { apiState, setApiState } = useApiPlay<IPlayerState>();
@@ -20,5 +20,7 @@ export function SubPlay(props) {
       return <Bank backNav={backNav} />;
     case SubPages.Inventory:
       return <Inventory backNav={backNav} />;
+    case SubPages.Production:
+      return <Production backNav={backNav} />;
   }
 }

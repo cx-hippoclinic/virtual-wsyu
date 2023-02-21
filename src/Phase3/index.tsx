@@ -4,7 +4,7 @@ import { css } from "@emotion/css";
 import { Skeleton } from "antd";
 import { ReactNode, useEffect } from "react";
 import { getSubGameConfig, goodsType } from "../common/config";
-import { IPlayerState, namespace, StepPages, SubPages } from "./config";
+import { IPlayerState, namespace, productionLineSize, ProductionStep, StepPages, SubPages } from "./config";
 import { SubPlay } from "./pages";
 
 function Play(props) {
@@ -30,6 +30,10 @@ function Play(props) {
           },
         };
         s.loanPlan = -1;
+        s.productionData = {
+          choseSize: productionLineSize.small,
+          step: ProductionStep.construction,
+        };
       });
     }
   }, []);

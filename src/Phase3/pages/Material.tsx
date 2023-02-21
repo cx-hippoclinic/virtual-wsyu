@@ -9,26 +9,10 @@ import { goodsType, GoodsTypeToTag } from "../../common/config";
 import machine from "../animation/machine.json";
 import paymentAnimation from "../animation/payment.json";
 import { CardWrapper } from "../components";
-import { IPlayerState, materialPrice } from "../config";
+import { IPlayerState, materialDetail, materialPrice } from "../config";
 
 const { Column, ColumnGroup } = Table;
-const materialDetail = {
-  [goodsType.hocus]: [
-    { name: "麻醉蒸发罐", price: 1000 },
-    { name: "呼吸回路", price: 1200 },
-    { name: "流量计", price: 800 },
-  ],
-  [goodsType.breathe]: [
-    { name: "空气混合器", price: 2000 },
-    { name: "雾化器", price: 1500 },
-    { name: "压缩机", price: 1200 },
-  ],
-  [goodsType.ultrasound]: [
-    { name: "超声换能器", price: 10000 },
-    { name: "声透镜", price: 5000 },
-    { name: "检测器", price: 8000 },
-  ],
-};
+
 enum MaterialPart {
   part1,
   part2,
