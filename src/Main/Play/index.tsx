@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { subGameConfigList } from "../../common/config";
 import { introPhases, introSubPhases, IPlayerState, Page } from "../config";
 import { Introduction } from "./Introduction";
+import { Report } from "./Report";
 import { ResultRank } from "./ResultRank";
 import { SubgameList } from "./SubgameList";
 
@@ -22,7 +23,7 @@ async function initState(mainGameId: string): Promise<{}> {
       id,
       namespace,
     })),
-    page: Page.play,
+    page: Page.intro,
     introPhases: {
       phases: introPhases.currency,
       subPhases: introSubPhases.intro,
@@ -51,6 +52,8 @@ export function Play({ game }: any) {
     case Page.play:
       return <SubgameList nextPage={() => setApiState({ page: Page.result })} />;
     case Page.result:
-      return <ResultRank nextPage={() => setApiState({ page: Page.play })} />;
+      return <ResultRank nextPage={() => setApiState({ page: Page.report })} />;
+    case Page.report:
+      return <Report nextPage={() => setApiState({ page: Page.play })} />;
   }
 }

@@ -1,11 +1,11 @@
-import { Asset, Background, Header, PageContent } from "@client";
+import { Asset, Background, Header, PageContent, Style, Theme } from "@client";
 import { css, injectGlobal } from "@emotion/css";
 import { Table } from "antd";
 import { useEffect } from "react";
 
 const { Column } = Table;
 
-export function ResultRank(props) {
+export function ResultRank({ nextPage }: { nextPage: () => void }) {
   useEffect(() => {
     injectGlobal`
       .ant-table{
@@ -197,6 +197,11 @@ export function ResultRank(props) {
             <Column title="交易笔数" dataIndex="pay" width="18rem" />
             <Column title="最终获利" dataIndex="lastMoney" width="14rem" />
           </Table>
+          <div className={Style.btnGroup}>
+            <button className={Theme.Btn.primary.sm} onClick={nextPage}>
+              下一步
+            </button>
+          </div>
         </div>
       </PageContent>
     </div>

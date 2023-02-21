@@ -36,6 +36,7 @@ export enum Page {
   intro,
   play,
   result,
+  report,
 }
 
 export enum introPhases {
