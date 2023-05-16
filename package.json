@@ -2,7 +2,7 @@
   "name": "guet-efm",
   "version": "2.7.17",
   "private": true,
-  "description": "桂林电子科技大学企业财务管理虚仿",
+  "description": "武昌首义学院信息校验与传输虚仿",
   "scripts": {
     "build": "vse-cli build -s both",
     "build:client": "vse-cli build -s client",

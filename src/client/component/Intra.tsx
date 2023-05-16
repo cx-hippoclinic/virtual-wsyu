@@ -46,7 +46,7 @@ export function Intra({
     >
       <div
         className={css`
-          background: radial-gradient(97.85% 318.81% at 99% 3.69%, #202a42 0%, #2b344a 45.76%, #202a42 100%);
+          //background: radial-gradient(97.85% 318.81% at 99% 3.69%, #202a42 0%, #2b344a 45.76%, #202a42 100%);
           opacity: 1;
           position: absolute;
           top: 0;

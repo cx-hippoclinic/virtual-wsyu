@@ -5,7 +5,7 @@ import { darken, getLuminance, lighten } from "polished";
 
 //region Color
 export enum Color {
-  primary = "#103171",
+  primary = "#7D82FF",
   warn = "#f6a829",
   disabled = "#cad1d0",
   light = "#f5f5f5",
@@ -76,6 +76,7 @@ export namespace Theme {
     transition: all 0.2s linear;
     cursor: pointer;
     margin: auto;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
     &:hover {
       transform: scale(1.1);

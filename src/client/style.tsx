@@ -32,7 +32,8 @@ export namespace Style {
     color: ${Color.light};
   `;
   export const modelWrapperStyle = {
-    background: "radial-gradient(97.85% 318.81% at 99% 3.69%, #001E65 0%, #15002F 41.55%, #0D2654 100%)",
+    background: "radial-gradient(97.85% 318.81% at 99% 3.69%, #7D82FF 0%, #001665 41.55%, #001665 100%)",
+    // background: "linear-gradient(107.98deg, #844AFF 0.78%, #4553CF 20.12%, #001665 99.36%);",
     borderRadius: "1.14rem",
     height: "57.1rem",
   };

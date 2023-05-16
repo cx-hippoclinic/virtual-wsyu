@@ -61,7 +61,9 @@ const SubgameItme = ({ txt, img, link }: { txt: string; img: string; link: strin
 };
 export function SubgameList({ nextPage }: { nextPage: () => void }) {
   const { apiState } = useApiPlay<IPlayerState>();
+  console.log(apiState);
   const { subGameList } = apiState;
+  console.log(subGameList, 2223);
   return (
     <div
       className={css`
