@@ -48,7 +48,7 @@ function Play(props) {
   let content: ReactNode;
   switch (apiState.pages) {
     case StepPages.intra:
-      content = <Intra content={intra} nextPage={getNextPage(StepPages.play)} />;
+      content = <Intra title={label} content={intra} nextPage={getNextPage(StepPages.play)} />;
       break;
     case StepPages.play:
       content = <SubPlay />;

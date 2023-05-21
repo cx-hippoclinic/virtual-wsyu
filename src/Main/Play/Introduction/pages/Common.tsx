@@ -19,6 +19,7 @@ export function Common({ nextPage }: { nextPage: () => void }) {
       content = (
         <Intra
           content={intro}
+          title={title}
           showAnswer={!hasIntroDetail}
           nextPage={getNextPage(hasIntroDetail ? introSubPhases.introDetail : introSubPhases.question)}
         />

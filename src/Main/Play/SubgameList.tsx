@@ -11,8 +11,8 @@ const SubgameItme = ({ txt, img, link }: { txt: string; img: string; link: strin
       className={css`
         width: 27rem;
         height: 38.8rem;
-        background: linear-gradient(0deg, #1b3c8f, #1b3c8f);
-        border: 3px solid #0010a5;
+        background: linear-gradient(0deg, #553c8f, #1b3c8f);
+        border: 3px solid #0055a5;
         border-radius: 2.14rem;
         text-align: center;
         position: relative;

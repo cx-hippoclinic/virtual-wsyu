@@ -1,74 +1,40 @@
-import { Asset, getRowClassName, onMainCell, Style, Theme } from "@client";
+import { Style } from "@client";
 import { css } from "@emotion/css";
 import { Table } from "antd";
-import { defaultLornData } from "../config";
+import { useEffect } from "react";
+import computer from "../../Phase3/animation/computer.json";
 import tableHeaderClass = Style.tableHeaderClass;
 
 const Column = Table.Column;
 function Loan(props) {
+  useEffect(() => {
+    window.addEventListener("message", (event) => {
+      console.log(event.data);
+      if (event.data === "phase2") {
+        history.back();
+      }
+    });
+  }, []);
   return (
     <div
       className={css`
-        background: radial-gradient(97.85% 318.81% at 99% 3.69%, #001e65 0%, #15002f 41.55%, #0d2654 100%);
-        border: 3px solid #1d3175;
-        padding: 3.8rem 12.85rem;
-        border-radius: 16px;
+        width: 100rem;
+        height: 55rem;
+        border: 3px solid #0055a5;
+        border-radius: 2.14rem;
+        overflow: hidden;
       `}
     >
-      <Table
-        size="middle"
-        dataSource={defaultLornData}
-        pagination={false}
-        rowClassName={getRowClassName}
-        className={tableHeaderClass}
-      >
-        <Column title="贷款方案" dataIndex="name" align="center" width="14rem" onCell={onMainCell} />
-        <Column
-          title="贷款类型"
-          dataIndex="type"
-          width="14rem"
-          className={css`
-            padding-left: 4.6rem !important;
-          `}
-        />
-        <Column title="贷款期限" dataIndex="time" width="14rem" render={(_) => _ && _ + "年"} />
-        <Column
-          title="年利率"
-          dataIndex="rate"
-          width="14rem"
-          render={(_) =>
-            _ ? (
-              _ + "%"
-            ) : (
-              <div
-                className={css`
-                  height: 1.5rem;
-                `}
-              ></div>
-            )
-          }
-        />
-        <Column title="贷款额度" dataIndex="quota" width="18rem" render={(_) => _ && `现有资金${_}倍`} />
-      </Table>
-      <div className={Style.btnGroup}>
-        <button
-          className={Theme.Btn.primary.sm}
-          onClick={() => {
-            history.back();
-          }}
-        >
-          切换角色
-        </button>
-      </div>
-      <img
-        src={Asset.play_phase2_lorn_bg}
-        alt=""
+      <iframe src={"//localhost:8000/inner/stepTwo"} width="100%" height="100%" frameBorder={0} />
+      <div
         className={css`
-          position: fixed;
-          right: 0;
-          bottom: 0;
+          position: absolute;
+          left: 20rem;
+          bottom: 0rem;
         `}
-      />
+      >
+        <Lottie options={{ animationData: computer }} width={400} height={400} />
+      </div>
     </div>
   );
 }

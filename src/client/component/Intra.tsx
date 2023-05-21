@@ -27,10 +27,12 @@ const contextStyle = css`
 export function Intra({
   nextPage,
   content,
+  title,
   showAnswer = false,
 }: {
   nextPage: () => void;
   content: ReactNode;
+  title: string;
   showAnswer?: Boolean;
 }): JSX.Element {
   return (
@@ -57,7 +59,7 @@ export function Intra({
         `}
       />
       <div>
-        <p className={cx(titleStyle)}>交易规则介绍</p>
+        <p className={cx(titleStyle)}>{title}介绍</p>
         <p className={cx(contextStyle)}>{content}</p>
       </div>
       <div

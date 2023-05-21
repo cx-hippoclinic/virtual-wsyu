@@ -48,7 +48,7 @@ export function Question({ questionChose, questionList, nextPage, isReview }: qu
           className={css`
             height: 0.78rem;
             width: 76.78rem;
-            background: #000000;
+            background: #362cac;
             border-radius: 4.3rem;
             border: 1.5px solid #0075ff;
             margin: 0 auto;
@@ -58,7 +58,7 @@ export function Question({ questionChose, questionList, nextPage, isReview }: qu
           <div
             style={{ width: `${((current + 1) / questionLen) * 100}%` }}
             className={css`
-              background: linear-gradient(90deg, #00c2ff 0.6%, #0038ff 98.98%);
+              background: linear-gradient(90deg, #00c2ff 0.6%, #844aff 98.98%);
               height: 100%;
             `}
           ></div>

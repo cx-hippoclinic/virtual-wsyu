@@ -21,8 +21,8 @@ export function ShowModalBtn({ nextPage, content, text }: { nextPage?: () => voi
           icon: <img src={Asset.play_Introduction_Warning} />,
           width: 534,
           style: {
-            backgroundColor: "rgba(13, 89, 203, 0.48)",
-            border: "3px solid #2796FC",
+            backgroundColor: "#A378FF",
+            border: "3px solid #4553CF",
             backdropFilter: "blur(9.5px)",
             textAlign: "center",
             color: "#ffffff",

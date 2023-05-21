@@ -81,6 +81,7 @@ function ViewStep({
           margin-left: 2.6rem;
           border-radius: 1rem;
           width: 101.6rem;
+          padding: 3rem;
           background-color: ${Color.primary};
           color: #ffffff;
         `}

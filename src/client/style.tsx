@@ -32,13 +32,13 @@ export namespace Style {
     color: ${Color.light};
   `;
   export const modelWrapperStyle = {
-    background: "radial-gradient(97.85% 318.81% at 99% 3.69%, #7D82FF 0%, #001665 41.55%, #001665 100%)",
+    background: "linear-gradient(107.56deg, #844AFF 0%, #4553CF 31.08%, #001665 100%)",
     // background: "linear-gradient(107.98deg, #844AFF 0.78%, #4553CF 20.12%, #001665 99.36%);",
     borderRadius: "1.14rem",
     height: "57.1rem",
   };
   export const contentWrapper = css`
-    background: radial-gradient(97.85% 318.81% at 99% 3.69%, #001e65 0%, #15002f 41.55%, #0d2654 100%);
+    background: linear-gradient(107.56deg, #844aff 0%, #4553cf 31.08%, #001665 100%);
     border-radius: 1.14rem;
     width: 94.86rem;
     height: 57.1rem;

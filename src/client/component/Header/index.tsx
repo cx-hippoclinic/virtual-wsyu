@@ -2,6 +2,7 @@ import { Asset, Style } from "@client";
 import { css, cx, injectGlobal } from "@emotion/css";
 import { Col, Modal, Row } from "antd";
 import { useEffect } from "react";
+import { ViewStepData } from "../../../common/config";
 import ProcessComp, { processProp } from "./ProcessComp";
 import ViewStep from "./ViewStep";
 
@@ -129,14 +130,18 @@ export function Header({
                 icon: false,
                 maskClosable: true,
                 content: (
-                  <ViewStep
-                    active={active}
-                    stepArr={[
-                      { name: "帮助提示", detail: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" },
-                      { name: "帮助提示", detail: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" },
-                      { name: "帮助提示", detail: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" },
-                    ]}
-                  />
+                  <div className={"relative"}>
+                    <div
+                      className={css`
+                        position: absolute;
+                        right: 20px;
+                        bottom: 20px;
+                      `}
+                    >
+                      <img src={Asset.play_Introduction_introDetailImg} />
+                    </div>
+                    <ViewStep active={active} stepArr={ViewStepData} />
+                  </div>
                 ),
               })
             }
@@ -168,7 +173,9 @@ export function Header({
                 centered: true,
                 width: "94rem",
                 style: {
-                  background: "radial-gradient(97.85% 318.81% at 99% 3.69%, #001E65 0%, #15002F 41.55%, #0D2654 100%)",
+                  background: "linear-gradient(107.98deg, #844aff 0.78%, #4553cf 20.12%, #001665 99.36%)",
+                  border: "3px solid #6028ff",
+                  height: "52.5rem",
                   borderRadius: "1.14rem",
                 },
                 closable: false,
@@ -201,7 +208,7 @@ export function Header({
                 centered: true,
                 width: "94rem",
                 style: {
-                  background: "radial-gradient(97.85% 318.81% at 99% 3.69%, #001E65 0%, #15002F 41.55%, #0D2654 100%)",
+                  background: "linear-gradient(107.98deg, #844aff 0.78%, #4553cf 20.12%, #001665 99.36%)",
                   borderRadius: "1.14rem",
                 },
                 closable: false,

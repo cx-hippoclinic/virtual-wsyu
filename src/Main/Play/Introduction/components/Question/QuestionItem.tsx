@@ -14,7 +14,7 @@ export function QuestionItem({ data, chose, onChange, isReview }: propType) {
   const activeStyle = css`
     border: 1.5px solid #2352cc;
     box-shadow: inset 0 0 14px rgba(111, 151, 255, 0.25);
-    background: #00154b;
+    background: #1553cf;
   `;
   const normalStyle = css`
     background: rgba(60, 100, 201, 0.44);
