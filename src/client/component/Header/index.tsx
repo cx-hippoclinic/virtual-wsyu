@@ -1,8 +1,9 @@
-import { Asset, Style } from "@client";
+import { Asset, Style, Theme } from "@client";
 import { css, cx, injectGlobal } from "@emotion/css";
-import { Col, Modal, Row } from "antd";
+import { Button, Col, Modal, Row } from "antd";
 import { useEffect } from "react";
 import { ViewStepData } from "../../../common/config";
+import { ReportContent } from "../../../Main/Play/Report";
 import ProcessComp, { processProp } from "./ProcessComp";
 import ViewStep from "./ViewStep";
 
@@ -216,7 +217,29 @@ export function Header({
                 icon: false,
                 closeIcon: <img src={`deleteBtn.png`} alt="" width={40} height={40} />,
                 maskClosable: true,
-                content: <ProcessComp />,
+                content: (
+                  <div>
+                    <ReportContent />
+                    <div
+                      className={css`
+                        display: flex;
+                        justify-content: center;
+                        margin-top: 5rem;
+                      `}
+                    >
+                      <a
+                        className={css`
+                          color: white !important;
+                        `}
+                        href={
+                          "https://cdn.chenxv.link/wsyu-info/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A%E6%A0%BC%E5%BC%8F.docx"
+                        }
+                      >
+                        <Button className={Theme.Btn.primary.sm}>下载实验报告格式</Button>
+                      </a>
+                    </div>
+                  </div>
+                ),
               })
             }
           >
@@ -231,6 +254,23 @@ export function Header({
             实验报告
           </div>
         </Col>
+        <div
+          className={css`
+            position: absolute;
+            right: 40rem;
+          `}
+        >
+          <a
+            className={css`
+              color: white;
+              font-size: 1.1rem;
+            `}
+            href={"https://cdn.chenxv.link/wsyu-info/%E5%AE%9E%E9%AA%8C%E6%8C%87%E5%AF%BC%E4%B9%A65-26.docx"}
+            download
+          >
+            实验指导书
+          </a>
+        </div>
       </Row>
     </div>
   );

@@ -1,7 +1,7 @@
 import { css } from "@emotion/css";
 import Lottie from "lottie-react-web";
 import { useEffect } from "react";
-import coding from "../animation/coding.json";
+import computer from "../../Phase3/animation/computer.json";
 
 export function SubPlay(props) {
   useEffect(() => {
@@ -22,7 +22,7 @@ export function SubPlay(props) {
         overflow: hidden;
       `}
     >
-      <iframe src={"//localhost:8000/inner/stepThree"} width="100%" height="100%" frameBorder={0} />
+      <iframe src={`//${window.location.hostname}:8001/inner/stepThree`} width="100%" height="100%" frameBorder={0} />
       <div
         className={css`
           position: absolute;
@@ -30,7 +30,7 @@ export function SubPlay(props) {
           bottom: 0rem;
         `}
       >
-        <Lottie options={{ animationData: coding }} width={400} height={400} />
+        <Lottie options={{ animationData: computer }} width={400} height={400} />
       </div>
     </div>
   );

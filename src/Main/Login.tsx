@@ -1,9 +1,42 @@
-import { AsExpertModal, LoginModal, RegisterModal } from "@ancademy/vse-client";
+import { api, LoginModal, RegisterModal } from "@ancademy/vse-client";
+import style from "@ancademy/vse-client/src/view/style.scss";
 import { Asset, Background, Theme } from "@client";
 import { css, cx } from "@emotion/css";
-import { Button, Space } from "antd";
-import { useEffect } from "react";
-
+import { Button, message, Modal, Space } from "antd";
+import React, { useEffect, useState } from "react";
+function AsExpertModales({
+  onSuccess = () => {
+    message.success("以评审专家身份访问！");
+    location.reload();
+  },
+  children = <button className={`${style.btnLogin} ${style.expert}`}>专家评审</button>,
+}: {
+  onSuccess?: () => void;
+  children?: React.ReactNode;
+}) {
+  const [visible, setVisible] = useState(false);
+  return (
+    <>
+      <div onClick={() => setVisible(true)}>{children}</div>
+      <Modal
+        title="以评审专家身份访问"
+        centered
+        okText="确定"
+        cancelText="取消"
+        width="36rem"
+        closeIcon={<></>}
+        visible={visible}
+        onOk={async () => {
+          await api.asExpert();
+          onSuccess();
+        }}
+        onCancel={() => setVisible(false)}
+      >
+        以评审专家身份访问本系统，本次实验数据将会被记录在后台
+      </Modal>
+    </>
+  );
+}
 export function Login() {
   useEffect(() => {
     const faviconurl = "https://cdn.chenxv.link/ico.png"; //这里可以是动态的获取的favicon的地址
@@ -43,7 +76,7 @@ export function Login() {
           <LoginModal>
             <Button className={Theme.Btn.light.md}>账号登录</Button>
           </LoginModal>
-          <AsExpertModal>
+          <AsExpertModales>
             <Button
               className={cx(
                 Theme.Btn.primary.md,
@@ -54,7 +87,7 @@ export function Login() {
             >
               专家评审
             </Button>
-          </AsExpertModal>
+          </AsExpertModales>
         </Space>
       </div>
     </>

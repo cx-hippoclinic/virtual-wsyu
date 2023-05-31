@@ -67,7 +67,7 @@ export function ResultRank({ nextPage }: { nextPage: () => void }) {
               color: #ffffff;
             `}
           >
-            结算排名
+            实验达人
           </h2>
           <div
             className={css`
@@ -93,22 +93,14 @@ export function ResultRank({ nextPage }: { nextPage: () => void }) {
               >
                 大强
               </p>
-              <p>最终获利</p>
+              <p>实验得分</p>
               <p
                 className={css`
                   font-size: 1.2rem;
                   color: #d1c661;
                 `}
               >
-                50W
-              </p>
-              <p>最终获利</p>
-              <p
-                className={css`
-                  font-size: 1.2rem;
-                `}
-              >
-                50
+                70
               </p>
             </div>
             <div
@@ -129,22 +121,14 @@ export function ResultRank({ nextPage }: { nextPage: () => void }) {
               >
                 大强
               </p>
-              <p>最终获利</p>
+              <p>实验得分</p>
               <p
                 className={css`
                   font-size: 1.2rem;
                   color: #d1c661;
                 `}
               >
-                50W
-              </p>
-              <p>最终获利</p>
-              <p
-                className={css`
-                  font-size: 1.2rem;
-                `}
-              >
-                50
+                60
               </p>
             </div>
             <div
@@ -165,19 +149,11 @@ export function ResultRank({ nextPage }: { nextPage: () => void }) {
               >
                 大强
               </p>
-              <p>最终获利</p>
+              <p>实验得分</p>
               <p
                 className={css`
                   font-size: 1.2rem;
                   color: #d1c661;
-                `}
-              >
-                50W
-              </p>
-              <p>最终获利</p>
-              <p
-                className={css`
-                  font-size: 1.2rem;
                 `}
               >
                 50
@@ -194,8 +170,8 @@ export function ResultRank({ nextPage }: { nextPage: () => void }) {
           >
             <Column title="排名" dataIndex="money" width="7rem" render={(_, item, index) => index + 4} />
             <Column title="姓名" dataIndex="rate" width="14rem" render={() => "小美"} />
-            <Column title="交易笔数" dataIndex="pay" width="18rem" />
-            <Column title="最终获利" dataIndex="lastMoney" width="14rem" />
+            <Column title="实验时间" dataIndex="pay" width="18rem" />
+            <Column title="实验得分" dataIndex="lastMoney" width="14rem" />
           </Table>
           <div className={Style.btnGroup}>
             <button className={Theme.Btn.primary.sm} onClick={nextPage}>

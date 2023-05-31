@@ -1,6 +1,7 @@
 import { Asset, ShowModalBtn, Theme } from "@client";
 import { css, cx } from "@emotion/css";
 import { ReactNode } from "react";
+import Extra from "../../Main/Play/Introduction/components/Extra";
 function StartAnswerBtn({ nextPage }: { nextPage: () => void }) {
   return (
     <ShowModalBtn
@@ -29,11 +30,13 @@ export function Intra({
   content,
   title,
   showAnswer = false,
+  showDownLoad,
 }: {
   nextPage: () => void;
   content: ReactNode;
   title: string;
   showAnswer?: Boolean;
+  showDownLoad?: Boolean;
 }): JSX.Element {
   return (
     <div
@@ -41,7 +44,7 @@ export function Intra({
         width: 94.8rem;
         position: relative;
         border-radius: 1.1rem;
-        padding: 6rem 10.4rem;
+        padding: ${!showAnswer ? "3rem 5.2rem" : "6rem 10.4rem"};
         border: 3px solid #1d3175;
         background: url("${Asset.components_Intro_bg}");
       `}
@@ -59,8 +62,87 @@ export function Intra({
         `}
       />
       <div>
+        <div
+          className={css`
+            position: absolute;
+            color: white;
+            top: 5rem;
+            right: 5rem;
+          `}
+        >
+          {showDownLoad && (
+            <>
+              <div
+                className={css`
+                  width: 10rem;
+                  display: flex;
+                  justify-content: space-between;
+                `}
+              >
+                实验报告格式
+                <a
+                  className={css`
+                    color: blueviolet;
+                    font-size: 1.1rem;
+                  `}
+                  href={"https://cdn.chenxv.link/wsyu-info/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A%E6%A0%BC%E5%BC%8F.docx"}
+                  download
+                >
+                  下载
+                </a>
+              </div>
+              <div
+                className={css`
+                  width: 10rem;
+                  display: flex;
+                  justify-content: space-between;
+                `}
+              >
+                实验指导书
+                <a
+                  className={css`
+                    color: blueviolet;
+                    font-size: 1.1rem;
+                  `}
+                  href={"https://cdn.chenxv.link/wsyu-info/%E5%AE%9E%E9%AA%8C%E6%8C%87%E5%AF%BC%E4%B9%A65-26.docx"}
+                  download
+                >
+                  下载
+                </a>
+              </div>
+            </>
+          )}
+        </div>
         <p className={cx(titleStyle)}>{title}介绍</p>
-        <p className={cx(contextStyle)}>{content}</p>
+        <p
+          className={cx(
+            contextStyle,
+            css`
+              display: flex;
+            `
+          )}
+        >
+          {!showAnswer ? (
+            <>
+              <p
+                className={css`
+                  width: 50%;
+                `}
+              >
+                {content}
+              </p>
+              <div
+                className={css`
+                  width: 50%;
+                `}
+              >
+                {!showAnswer && <Extra />}
+              </div>
+            </>
+          ) : (
+            { content }
+          )}
+        </p>
       </div>
       <div
         className={css`

@@ -1,6 +1,7 @@
 import { Style } from "@client";
 import { css } from "@emotion/css";
 import { Table } from "antd";
+import Lottie from "lottie-react-web";
 import { useEffect } from "react";
 import computer from "../../Phase3/animation/computer.json";
 import tableHeaderClass = Style.tableHeaderClass;
@@ -25,7 +26,7 @@ function Loan(props) {
         overflow: hidden;
       `}
     >
-      <iframe src={"//localhost:8000/inner/stepTwo"} width="100%" height="100%" frameBorder={0} />
+      <iframe src={`//${window.location.hostname}:8001/inner/stepTwo`} width="100%" height="100%" frameBorder={0} />
       <div
         className={css`
           position: absolute;

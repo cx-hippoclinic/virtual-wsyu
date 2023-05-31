@@ -15,7 +15,7 @@ export function Result({ ...props }: TPlayPageProps & { nextPage: () => void }) 
   const { apiState: apiPlayState } = useApiPlay<IPlayerState>();
   const { loading, apiState, setApiState } = useApiState<IPageTradeResultState>(gameId, "resultKey");
   function gender() {
-    const { money = 10000, myShoutsCount = 15 } = apiPlayState;
+    const { money = 100, myShoutsCount = 100 } = apiPlayState;
     const data = [
       {
         name: "用户",
@@ -24,7 +24,7 @@ export function Result({ ...props }: TPlayPageProps & { nextPage: () => void }) 
       },
     ];
     for (let i = 0; i < 9; i++) {
-      const m = randomCount(money - 5000, money + 5000);
+      const m = randomCount(money - 10, money + 10);
       const c = randomCount(myShoutsCount - 10, myShoutsCount + 10);
       data.push({
         name: `机器人${i + 1}`,
@@ -72,14 +72,14 @@ export function Result({ ...props }: TPlayPageProps & { nextPage: () => void }) 
       >
         <Column title="姓名" dataIndex="name" align="center" width="12rem" onCell={onMainCell} />
         <Column
-          title="交易笔数"
+          title="实验时间"
           dataIndex="count"
           width="50rem"
           className={css`
             padding-left: 4.6rem !important;
           `}
         />
-        <Column title="最终获利" dataIndex="money" width="12rem" />
+        <Column title="实验得分" dataIndex="money" width="12rem" />
       </Table>
       <div className={Style.btnGroup}>
         <button className={Theme.Btn.primary.sm} onClick={nextPage}>

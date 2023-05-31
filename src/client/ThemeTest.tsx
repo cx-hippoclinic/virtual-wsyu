@@ -1,17 +1,30 @@
-import { Env } from "@ancademy/vse-client";
+import { Env, useApiPlay } from "@ancademy/vse-client";
 import { ColorDerived, Theme } from "@client";
-import { css } from "@emotion/css";
+import { css, injectGlobal } from "@emotion/css";
 import { Button, Divider, Input, Modal, Radio, Space } from "antd";
 import { getLuminance } from "polished";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { render } from "react-dom";
+import { IPlayerState } from "../Phase1/config";
 
 export function ThemeTest() {
+  useEffect(() => {
+    injectGlobal`
+      .footer_2VwE{
+        display: none;
+      }
+      .logo_mMQ-{
+        opacity: 0;
+      }
+    `;
+  }, []);
   const [visible, setVisible] = useState(false),
     hideModal = () => setVisible(false);
   if (Env.isProd) {
     return null;
   }
+  const { apiState: apiPlayState } = useApiPlay<IPlayerState>();
+  console.log(apiPlayState, 233);
   return (
     <section
       className={css`
@@ -19,11 +32,12 @@ export function ThemeTest() {
         bottom: 1rem;
         right: 1rem;
         z-index: 1000;
+        color: white;
       `}
     >
-      <Button className={Theme.Btn.light.xs} onClick={() => setVisible(!visible)}>
-        主题测试
-      </Button>
+      {/*<Button id={"233"} className={Theme.Btn.light.xs} onClick={() => setVisible(!visible)}>*/}
+      {/*  主题测试*/}
+      {/*</Button>*/}
       <Modal
         visible={visible}
         centered

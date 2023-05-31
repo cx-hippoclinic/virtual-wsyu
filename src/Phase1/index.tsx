@@ -31,7 +31,7 @@ function Play(props: TPlayPageProps) {
   let content: ReactNode;
   switch (apiState.pages) {
     case StepPages.intra:
-      content = <Intra title={label} content={intra} nextPage={getNextPage(StepPages.play)} />;
+      content = <Intra showDownLoad={true} title={label} content={intra} nextPage={getNextPage(StepPages.play)} />;
       break;
     case StepPages.play:
       content = <Trade {...props} nextPage={getNextPage(StepPages.result)} prePage={getNextPage(StepPages.intra)} />;

@@ -121,7 +121,7 @@ export function Trade({ ...props }: TPlayPageProps & { nextPage: () => void; pre
         overflow: hidden;
       `}
     >
-      <iframe src={"//localhost:8000"} width="100%" height="100%" frameBorder={0} />
+      <iframe src={`//${window.location.hostname}:8001`} width="100%" height="100%" frameBorder={0} />
     </div>
   );
 }

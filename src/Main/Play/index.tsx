@@ -54,6 +54,6 @@ export function Play({ game }: any) {
     case Page.result:
       return <ResultRank nextPage={() => setApiState({ page: Page.report })} />;
     case Page.report:
-      return <Report nextPage={() => setApiState({ page: Page.play })} />;
+      return <Report nextPage={() => setApiState({ page: Page.play })} gameId={game.id} />;
   }
 }

@@ -3,6 +3,7 @@ import { goodsType, SubNamespace } from "../common/config";
 export const namespace = SubNamespace.phase1;
 export enum StepPages {
   intra,
+  extra,
   play,
   result,
 }
