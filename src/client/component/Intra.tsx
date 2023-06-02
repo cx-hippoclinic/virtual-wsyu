@@ -140,7 +140,7 @@ export function Intra({
               </div>
             </>
           ) : (
-            { content }
+            content
           )}
         </p>
       </div>
