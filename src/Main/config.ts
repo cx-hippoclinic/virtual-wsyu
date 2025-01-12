@@ -75,7 +75,7 @@ export interface questionState {
   current: number;
   analyze: string;
 }
-const questionList: Record<introPhases, questionState[]> = {
+export const questionList: Record<introPhases, questionState[]> = {
   [introPhases.currency]: [
     {
       question: "1.下列各进制数中最小的数是()。",

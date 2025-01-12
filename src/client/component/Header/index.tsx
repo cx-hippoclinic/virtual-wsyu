@@ -1,8 +1,10 @@
+import { useApiPlay } from "@ancademy/vse-client";
 import { Asset, Style, Theme } from "@client";
 import { css, cx, injectGlobal } from "@emotion/css";
 import { Button, Col, Modal, Row } from "antd";
 import { useEffect } from "react";
 import { ViewStepData } from "../../../common/config";
+import { IPlayerState } from "../../../Main/config";
 import { ReportContent } from "../../../Main/Play/Report";
 import ProcessComp, { processProp } from "./ProcessComp";
 import ViewStep from "./ViewStep";
@@ -18,6 +20,7 @@ export function Header({
   active = 0,
   processActive = { process: 0, subprocess: 0 },
 }: HeaderPropsType): JSX.Element {
+  const { apiState, setApiState } = useApiPlay<IPlayerState>();
   useEffect(() => {
     injectGlobal`
       .ant-modal-wrap {
@@ -219,7 +222,7 @@ export function Header({
                 maskClosable: true,
                 content: (
                   <div>
-                    <ReportContent />
+                    <ReportContent apiState={apiState} />
                     <div
                       className={css`
                         display: flex;
@@ -232,7 +235,7 @@ export function Header({
                           color: white !important;
                         `}
                         href={
-                          "https://cdn.chenxv.link/wsyu-info/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A%E6%A0%BC%E5%BC%8F.docx"
+                          "http://www.huangjinyu.xyz//wsyu-info/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A%E6%A0%BC%E5%BC%8F.docx"
                         }
                       >
                         <Button className={Theme.Btn.primary.sm}>下载实验报告格式</Button>
@@ -265,7 +268,7 @@ export function Header({
               color: white;
               font-size: 1.1rem;
             `}
-            href={"https://cdn.chenxv.link/wsyu-info/%E5%AE%9E%E9%AA%8C%E6%8C%87%E5%AF%BC%E4%B9%A65-26.docx"}
+            href={"http://www.huangjinyu.xyz//wsyu-info/%E5%AE%9E%E9%AA%8C%E6%8C%87%E5%AF%BC%E4%B9%A65-26.docx"}
             download
           >
             实验指导书

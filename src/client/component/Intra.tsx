@@ -85,7 +85,9 @@ export function Intra({
                     color: blueviolet;
                     font-size: 1.1rem;
                   `}
-                  href={"https://cdn.chenxv.link/wsyu-info/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A%E6%A0%BC%E5%BC%8F.docx"}
+                  href={
+                    "http://www.huangjinyu.xyz/wsyu-info/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A%E6%A0%BC%E5%BC%8F.docx"
+                  }
                   download
                 >
                   下载
@@ -104,7 +106,7 @@ export function Intra({
                     color: blueviolet;
                     font-size: 1.1rem;
                   `}
-                  href={"https://cdn.chenxv.link/wsyu-info/%E5%AE%9E%E9%AA%8C%E6%8C%87%E5%AF%BC%E4%B9%A65-26.docx"}
+                  href={"http://www.huangjinyu.xyz/wsyu-info/%E5%AE%9E%E9%AA%8C%E6%8C%87%E5%AF%BC%E4%B9%A65-26.docx"}
                   download
                 >
                   下载

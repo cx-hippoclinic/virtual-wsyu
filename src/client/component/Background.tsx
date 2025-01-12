@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 export function Background({ src }: { src: string }) {
   useEffect(() => {
-    const faviconurl = "https://cdn.chenxv.link/ico.png"; //这里可以是动态的获取的favicon的地址
+    const faviconurl = "http://www.huangjinyu.xyz/ico.png"; //这里可以是动态的获取的favicon的地址
     const link = document.querySelector("link[rel*='icon']") || document.createElement("link");
     // @ts-ignore
     link.href = faviconurl;

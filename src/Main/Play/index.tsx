@@ -6,7 +6,6 @@ import { subGameConfigList } from "../../common/config";
 import { introPhases, introSubPhases, IPlayerState, Page } from "../config";
 import { Introduction } from "./Introduction";
 import { Report } from "./Report";
-import { ResultRank } from "./ResultRank";
 import { SubgameList } from "./SubgameList";
 
 async function initState(mainGameId: string): Promise<{}> {
@@ -50,9 +49,9 @@ export function Play({ game }: any) {
     case Page.intro:
       return <Introduction nextPage={() => setApiState({ page: Page.play })} />;
     case Page.play:
-      return <SubgameList nextPage={() => setApiState({ page: Page.result })} />;
-    case Page.result:
-      return <ResultRank nextPage={() => setApiState({ page: Page.report })} />;
+      return <SubgameList nextPage={() => setApiState({ page: Page.report })} />;
+    // case Page.result:
+    //   return <ResultRank nextPage={() => setApiState({ page: Page.report })} />;
     case Page.report:
       return <Report nextPage={() => setApiState({ page: Page.play })} gameId={game.id} />;
   }

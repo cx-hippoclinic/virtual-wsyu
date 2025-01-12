@@ -4,6 +4,7 @@ import { Asset, Background, Theme } from "@client";
 import { css, cx } from "@emotion/css";
 import { Button, message, Modal, Space } from "antd";
 import React, { useEffect, useState } from "react";
+
 function AsExpertModales({
   onSuccess = () => {
     message.success("以评审专家身份访问！");
@@ -37,9 +38,10 @@ function AsExpertModales({
     </>
   );
 }
+
 export function Login() {
   useEffect(() => {
-    const faviconurl = "https://cdn.chenxv.link/ico.png"; //这里可以是动态的获取的favicon的地址
+    const faviconurl = "http://www.huangjinyu.xyz/ico.png"; //这里可以是动态的获取的favicon的地址
     const link = document.querySelector("link[rel*='icon']") || document.createElement("link");
     // @ts-ignore
     link.href = faviconurl;
@@ -90,6 +92,17 @@ export function Login() {
           </AsExpertModales>
         </Space>
       </div>
+      <Space
+        className={css`
+          left: 50%;
+          transform: translateX(-50%);
+          position: absolute;
+          bottom: 50px;
+          color: white;
+        `}
+      >
+        鄂ICP备2024088333号-1
+      </Space>
     </>
   );
 }

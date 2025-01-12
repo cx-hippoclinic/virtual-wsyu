@@ -1,23 +1,35 @@
-import { api } from "@ancademy/vse-client";
+import { api, useApiPlay } from "@ancademy/vse-client";
 import { Asset, Background, Header, PageContent, Theme } from "@client";
 import { css, injectGlobal } from "@emotion/css";
 import { Button, message, Upload } from "antd";
 import { Axis, Chart, Coordinate, Interaction, Interval, Tooltip } from "bizcharts";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { introPhases, IPlayerState, questionList } from "../config";
 
-export const ReportContent = () => {
+const calcScore = (apiState: IPlayerState, phases: introPhases[]) => {
+  return Math.round(
+    phases.reduce((score, it) => {
+      let number = 0;
+      apiState?.introPhases?.questionChose[it].forEach((choose, index) => {
+        if (questionList[it][index].current === choose) number += 11.1;
+      });
+      return score + number;
+    }, 0)
+  );
+};
+export const ReportContent = (props) => {
   const data = [
     {
       type: "环节一",
-      value: 20,
+      value: calcScore(props.apiState, [introPhases.currency]),
     },
     {
       type: "环节二",
-      value: 18,
+      value: calcScore(props.apiState, [introPhases.risk]),
     },
     {
       type: "环节三",
-      value: 32,
+      value: calcScore(props.apiState, [introPhases.securities]),
     },
   ];
   return (
@@ -48,13 +60,13 @@ export const ReportContent = () => {
             width: 30rem;
           `}
         >
-          <p>系统评分（满分100）：85</p>
+          <p>系统评分（满分100）：{data[0].value + data[1].value + data[2].value}</p>
           <p> 环节一：信息转换与存储</p>
-          <p>得分：10</p>
+          <p>得分：{data[0].value}</p>
           <p> 环节二：校验码编解码</p>
-          <p>得分：20</p>
+          <p>得分：{data[1].value}</p>
           <p> 环节三：信息传输</p>
-          <p>得分：5</p>
+          <p>得分：{data[2].value}</p>
         </div>
         <Chart data={data} height={320} autoFit>
           <Coordinate type="theta" radius={0.8} innerRadius={0.55} />
@@ -94,6 +106,27 @@ export function Report(props) {
     });
     console.log(res);
   };
+  const saveStepData = async () => {
+    console.log(props.gameId);
+    let result = await api.getMyResult(props.gameId);
+    if (!result) {
+      result = await api.initResult(props.gameId);
+    }
+    // await api.saveMainAnswer(props.gameId, [{ score: score.current, answer: "res" }]);
+    // await api.mockAndUploadResult(props.gameId);
+    await api.saveStepResult({
+      id: result.id,
+      stepResult: {
+        seq: 1, //步骤序号
+        score: score.current, //得分
+        expectTime: 60 * 8, //预计用时(秒)
+        title: "制定计划", //标题
+        scoringModel: "实验计划制定100%", //得分标准描述
+        maxScore: 100, //步骤满分
+      },
+      stepAmount: 1,
+    });
+  };
   const uploadProps: any = {
     name: "file",
     action: "/file/upload",
@@ -104,6 +137,7 @@ export function Report(props) {
       if (info.file.status === "done") {
         console.log(info.file.response.data);
         saveReport(info.file.response.data);
+        saveStepData();
         message.success(`${info.file.name} file uploaded successfully`);
       } else if (info.file.status === "error") {
         message.error(`${info.file.name} file upload failed.`);
@@ -117,6 +151,9 @@ export function Report(props) {
       }
     `;
   }, []);
+  const { apiState, setApiState } = useApiPlay<IPlayerState>();
+
+  const score = useRef(calcScore(apiState, [introPhases.currency, introPhases.risk, introPhases.securities]));
   return (
     <div
       className={css`
@@ -132,7 +169,7 @@ export function Report(props) {
           color: #ffffff;
         `}
       >
-        <ReportContent />
+        <ReportContent apiState={apiState} />
         <div
           className={css`
             height: 22.8rem;
